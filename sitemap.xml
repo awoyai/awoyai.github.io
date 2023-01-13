@@ -11,7 +11,7 @@
   </url>
   
   <url>
-    <loc>https://awoyai.github.io/2023/01/13/golang%E6%96%87%E4%BB%B6-%E5%8E%8B%E7%BC%A9/</loc>
+    <loc>https://awoyai.github.io/2023/01/13/golang%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/</loc>
     
     <lastmod>2023-01-13</lastmod>
     
@@ -20,7 +20,7 @@
   </url>
   
   <url>
-    <loc>https://awoyai.github.io/2023/01/13/golang%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/</loc>
+    <loc>https://awoyai.github.io/2023/01/13/golang%E6%96%87%E4%BB%B6-%E5%8E%8B%E7%BC%A9/</loc>
     
     <lastmod>2023-01-13</lastmod>
     
@@ -171,6 +171,41 @@
     <priority>0.2</priority>
   </url>
   
+  <url>
+    <loc>https://awoyai.github.io/tags/command/</loc>
+    <lastmod>2023-01-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://awoyai.github.io/tags/file/</loc>
+    <lastmod>2023-01-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://awoyai.github.io/tags/windows/</loc>
+    <lastmod>2023-01-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://awoyai.github.io/tags/powershell/</loc>
+    <lastmod>2023-01-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://awoyai.github.io/tags/scoop/</loc>
+    <lastmod>2023-01-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
 
   
   <url>
@@ -182,6 +217,13 @@
   
   <url>
     <loc>https://awoyai.github.io/categories/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</loc>
+    <lastmod>2023-01-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://awoyai.github.io/categories/golang/</loc>
     <lastmod>2023-01-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>

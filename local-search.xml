@@ -11,6 +11,18 @@
     <content type="html"><![CDATA[<h3 id="执行命令">执行命令</h3><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs golang"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;exec&quot;</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>    <span class="hljs-comment">// 错误用法</span><br>    <span class="hljs-comment">// exec.Command(&quot;./server&quot;, &quot;-conf ./config/config.yaml&quot;)</span><br>    <span class="hljs-comment">// 正确用法</span><br>    cmd, err := exec.Command(<span class="hljs-string">&quot;./server&quot;</span>, <span class="hljs-string">&quot;-conf&quot;</span>, <span class="hljs-string">&quot;config.yaml&quot;</span>, <span class="hljs-string">&quot;--xxx&quot;</span>, <span class="hljs-string">&quot;xxxx&quot;</span>)<br>    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>        <span class="hljs-built_in">println</span>(err)<br>    &#125;<br>    out, err := cmd.CombinedOutput()<br><span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br><span class="hljs-built_in">println</span>(err)<br>&#125;<br>    <span class="hljs-built_in">println</span>(out)<br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
     
     
+    <categories>
+      
+      <category>golang</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>command</tag>
+      
+    </tags>
     
   </entry>
   
@@ -24,12 +36,20 @@
     <content type="html"><![CDATA[<h3 id="文件读取">文件读取</h3><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs golang"><span class="hljs-keyword">package</span> main<br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;os&quot;</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>    file, err := os.ReadFile(<span class="hljs-string">&quot;xxxx&quot;</span>)<br>    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>        <span class="hljs-built_in">println</span>(err)<br>    &#125;<br>    <span class="hljs-built_in">println</span>(<span class="hljs-built_in">len</span>(file))<br>&#125;<br></code></pre></td></tr></table></figure><h3 id="文件压缩">文件压缩</h3><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs golang"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br><span class="hljs-string">&quot;archive/zip&quot;</span><br><span class="hljs-string">&quot;bytes&quot;</span><br><span class="hljs-string">&quot;encoding/gob&quot;</span><br><span class="hljs-string">&quot;io&quot;</span><br><span class="hljs-string">&quot;os&quot;</span><br><span class="hljs-string">&quot;path/filepath&quot;</span><br><span class="hljs-string">&quot;strings&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">CompressDir</span><span class="hljs-params">(src_dir <span class="hljs-type">string</span>, zipFileName <span class="hljs-type">string</span>)</span></span> <span class="hljs-type">error</span> &#123;<br><span class="hljs-comment">// 预防：旧文件无法覆盖</span><br>os.RemoveAll(zipFileName)<br><span class="hljs-comment">// 创建：zip文件</span><br>zipfile, _ := os.Create(zipFileName)<br><span class="hljs-keyword">defer</span> zipfile.Close()<br><span class="hljs-comment">// 打开：zip文件</span><br>archive := zip.NewWriter(zipfile)<br><span class="hljs-keyword">defer</span> archive.Close()<br><span class="hljs-comment">// 遍历路径信息</span><br><span class="hljs-keyword">return</span> filepath.Walk(src_dir, <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(path <span class="hljs-type">string</span>, info os.FileInfo, _ <span class="hljs-type">error</span>)</span></span> <span class="hljs-type">error</span> &#123;<br><span class="hljs-comment">// 如果是源路径，提前进行下一个遍历</span><br><span class="hljs-keyword">if</span> path == src_dir &#123;<br><span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span><br>&#125;<br><span class="hljs-comment">// 获取：文件头信息</span><br>header, _ := zip.FileInfoHeader(info)<br>header.Name = strings.TrimPrefix(path, src_dir+<span class="hljs-string">`/`</span>)<br><span class="hljs-comment">// 判断：文件是不是文件夹</span><br><span class="hljs-keyword">if</span> info.IsDir() &#123;<br>header.Name += <span class="hljs-string">`/`</span><br>&#125; <span class="hljs-keyword">else</span> &#123;<br><span class="hljs-comment">// 设置：zip的文件压缩算法</span><br>header.Method = zip.Deflate<br>&#125;<br><span class="hljs-comment">// 创建：压缩包头部信息</span><br>writer, _ := archive.CreateHeader(header)<br><span class="hljs-keyword">if</span> !info.IsDir() &#123;<br>file, _ := os.Open(path)<br><span class="hljs-keyword">defer</span> file.Close()<br>io.Copy(writer, file)<br>&#125;<br><span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span><br>&#125;)<br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
     
     
+    <categories>
+      
+      <category>golang</category>
+      
+    </categories>
+    
     
     <tags>
       
       <tag>golang</tag>
       
       <tag>io</tag>
+      
+      <tag>file</tag>
       
     </tags>
     
@@ -45,6 +65,22 @@
     <content type="html"><![CDATA[<h3 id="安装powershell">1. 安装powershell</h3><p>https://github.com/PowerShell/PowerShell</p><h3 id="安装scoop">2. 安装scoop</h3><p>使用powershell打开命令行</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">Set-ExecutionPolicy RemoteSigned -Scope CurrentUser <span class="hljs-comment"># Optional: Needed to run a remote script the first time</span><br>irm get.scoop.sh | iex<br></code></pre></td></tr></table></figure><h3 id="添加scoop桶">3. 添加scoop桶</h3><p><code>scoop bucket add extras</code></p><p><a href="https://scoop.sh/#/buckets">更多桶推荐</a></p>]]></content>
     
     
+    <categories>
+      
+      <category>开发环境搭建</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>windows</tag>
+      
+      <tag>powershell</tag>
+      
+      <tag>scoop</tag>
+      
+    </tags>
     
   </entry>
   
