@@ -26,7 +26,7 @@
 <meta property="og:image" content="https://awoyai.github.io/2023/01/10/%E9%85%8D%E7%BD%AE%E8%BF%9C%E7%A8%8Blinux%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/image.2.png">
 <meta property="og:image" content="https://awoyai.github.io/2023/01/10/%E9%85%8D%E7%BD%AE%E8%BF%9C%E7%A8%8Blinux%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/image.3.png">
 <meta property="article:published_time" content="2023-01-10T04:58:56.000Z">
-<meta property="article:modified_time" content="2023-04-06T08:39:27.158Z">
+<meta property="article:modified_time" content="2023-04-06T09:11:58.170Z">
 <meta property="article:author" content="awoyai">
 <meta property="article:tag" content="linux">
 <meta property="article:tag" content="centos">
@@ -246,7 +246,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.2k 字
+          1.6k 字
         
       </span>
     
@@ -257,7 +257,7 @@
         
         
         
-          19 分钟
+          14 分钟
         
       </span>
     
@@ -331,17 +331,14 @@
 <h1 id="安装开发语言">4.安装开发语言</h1>
 <h4 id="golang">1. Golang</h4>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-comment">#下载安装包</span><br>wget https://go.dev/dl/go1.19.4.linux-amd64.tar.gz<br><span class="hljs-comment">#install</span><br><span class="hljs-built_in">rm</span> -rf /usr/local/go &amp;&amp; tar -C /usr/local -xzf go1.19.4.linux-amd64.tar.gz<br><span class="hljs-comment">#add to path</span><br><span class="hljs-comment">#为所有人安装</span><br>vim /etc/profile<br><span class="hljs-comment">#将此行添加进去</span><br><span class="hljs-built_in">export</span> PATH=<span class="hljs-variable">$PATH</span>:/usr/local/go/bin<br><span class="hljs-built_in">source</span> /etc/profile<br><span class="hljs-comment">#verify</span><br>go version<br><br><span class="hljs-comment">#如果重开命令行发现无法识别 go命令可重启reboot解决</span><br></code></pre></td></tr></table></figure>
-<h5 id="配置go-env">1.1 配置go env</h5>
-<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs abnf"><span class="hljs-attribute">GOINSECURE</span><span class="hljs-operator">=</span><span class="hljs-string">&quot;git.code.oa.com,git.woa.com&quot;</span><br><span class="hljs-attribute">GONOPROXY</span><span class="hljs-operator">=</span><span class="hljs-string">&quot;git.code.oa.com,git.woa.com&quot;</span><br><span class="hljs-attribute">GONOSUMDB</span><span class="hljs-operator">=</span><span class="hljs-string">&quot;git.code.oa.com,git.woa.com&quot;</span><br><span class="hljs-attribute">GOPRIVATE</span><span class="hljs-operator">=</span><span class="hljs-string">&quot;git.code.oa.com,git.woa.com&quot;</span><br></code></pre></td></tr></table></figure>
 <h4 id="rust-todo">2.Rust (TODO)</h4>
 <h1 id="配置git">5.配置git</h1>
 <p>配置~/.ssh/config</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs stylus">Host git<span class="hljs-selector-class">.woa</span><span class="hljs-selector-class">.com</span><br>    User <span class="hljs-selector-attr">[your staff name]</span><br>    IdentityFile <span class="hljs-selector-attr">[秘钥位置]</span><br></code></pre></td></tr></table></figure>
-<p>配置
-~/.gitconfig，code.oa.com域名已不再使用，由于以往项目有用过，重新映射</p>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-section">[url &quot;git@git.woa.com:&quot;]</span><br>        <span class="hljs-attr">insteadof</span> = git@git.code.oa.com:<br><span class="hljs-section">[url &quot;http://git.woa.com/&quot;]</span>   <br>        <span class="hljs-attr">insteadof</span> = http://git.code.oa.com/<br><span class="hljs-section">[url &quot;https://git.woa.com/&quot;]</span>   <br>        <span class="hljs-attr">insteadof</span> = https://git.code.oa.com/<br><span class="hljs-section">[credential &quot;http://git.woa.com&quot;]</span><br>        <span class="hljs-attr">provider</span> = generic<br><span class="hljs-section">[credential &quot;https://git.woa.com&quot;]</span><br>        <span class="hljs-attr">provider</span> = generic<br><span class="hljs-section">[credential]</span><br>        <span class="hljs-attr">helper</span> = store<br><span class="hljs-section">[user]</span><br>        <span class="hljs-attr">name</span> = [staffname]<br>        <span class="hljs-attr">passowrd</span> = [密码]<br>        <span class="hljs-attr">email</span> = [邮箱]<br></code></pre></td></tr></table></figure>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">Host</span><span class="hljs-meta"> [test.com]</span><br>    <span class="hljs-attribute">User</span><span class="hljs-meta"> [your staff name]</span><br>    <span class="hljs-attribute">IdentityFile</span><span class="hljs-meta"> [秘钥位置]</span><br></code></pre></td></tr></table></figure>
+<p>配置 ~/.gitconfig</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-section">[credential]</span><br>        <span class="hljs-attr">helper</span> = store<br><span class="hljs-section">[user]</span><br>        <span class="hljs-attr">name</span> = [staffname]<br>        <span class="hljs-attr">passowrd</span> = [密码]<br>        <span class="hljs-attr">email</span> = [邮箱]<br></code></pre></td></tr></table></figure>
 <h1 id="安装mysql">6.安装mysql</h1>
-<p>TODO</p>
+<a href="/2023/01/10/ubuntu%E5%AE%89%E8%A3%85mysql/" title="ubuntu安装mysql">ubuntu安装mysql</a>
 <h1 id="安装redis">7.安装redis</h1>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs sh">wget https://download.redis.io/redis-stable.tar.gz<br>tar -xzvf redis-stable.tar.gz<br><span class="hljs-built_in">cd</span> redis-stable<br>make<br>make install<br><span class="hljs-comment"># verify</span><br>redis-server &amp;<br><br></code></pre></td></tr></table></figure>
 
