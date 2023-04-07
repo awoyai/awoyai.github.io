@@ -1,3 +1,4 @@
+https://awoyai.github.io/2023/04/07/docker%E9%83%A8%E7%BD%B2envoy%E7%BD%91%E5%85%B3/
 https://awoyai.github.io/2023/01/10/%E9%85%8D%E7%BD%AE%E8%BF%9C%E7%A8%8Blinux%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/
 https://awoyai.github.io/2023/02/17/windows%E5%AE%89%E8%A3%85oh-my-posh/
 https://awoyai.github.io/2023/01/10/windows%E5%AE%89%E8%A3%85scoop/
@@ -26,6 +27,11 @@ https://awoyai.github.io/tags/file/
 https://awoyai.github.io/tags/windows/
 https://awoyai.github.io/tags/powershell/
 https://awoyai.github.io/tags/scoop/
+https://awoyai.github.io/tags/docker/
+https://awoyai.github.io/tags/envoy/
+https://awoyai.github.io/tags/gateway/
 https://awoyai.github.io/categories/ZK/
 https://awoyai.github.io/categories/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/
 https://awoyai.github.io/categories/golang/
+https://awoyai.github.io/categories/docker/
+https://awoyai.github.io/categories/docker/%E7%BD%91%E5%85%B3/
