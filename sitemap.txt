@@ -1,6 +1,6 @@
+https://awoyai.github.io/2023/01/10/%E9%85%8D%E7%BD%AE%E8%BF%9C%E7%A8%8Blinux%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/
 https://awoyai.github.io/2023/04/07/ubuntu%E5%AE%89%E8%A3%85docker/
 https://awoyai.github.io/2023/04/07/ubuntu%E5%AE%89%E8%A3%85jenkins/
-https://awoyai.github.io/2023/01/10/%E9%85%8D%E7%BD%AE%E8%BF%9C%E7%A8%8Blinux%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/
 https://awoyai.github.io/2023/04/07/docker%E9%83%A8%E7%BD%B2envoy%E7%BD%91%E5%85%B3/
 https://awoyai.github.io/2023/02/17/windows%E5%AE%89%E8%A3%85oh-my-posh/
 https://awoyai.github.io/2023/01/10/windows%E5%AE%89%E8%A3%85scoop/
