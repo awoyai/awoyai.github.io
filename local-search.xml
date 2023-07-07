@@ -41,7 +41,7 @@
     <link href="/2023/04/07/ubuntu%E5%AE%89%E8%A3%85docker/"/>
     <url>/2023/04/07/ubuntu%E5%AE%89%E8%A3%85docker/</url>
     
-    <content type="html"><![CDATA[<h1 id="ubuntu安装docker">ubuntu安装docker</h1><p>下载docker自动安装脚本</p><p><code>curl -fsSL https://test.docker.com -o test-docker.sh</code></p><p>运行脚本</p><p><code>sudo sh test-docker.sh</code></p>]]></content>
+    <content type="html"><![CDATA[<h2 id="下载docker自动安装脚本">下载docker自动安装脚本</h2><p><code>curl -fsSL https://test.docker.com -o test-docker.sh</code></p><h2 id="运行脚本">运行脚本</h2><p><code>sudo sh test-docker.sh</code></p>]]></content>
     
     
     <categories>
