@@ -23,14 +23,16 @@
 <meta property="og:site_name" content="awoyai&#39;blog">
 <meta property="og:description" content="使用docker部署envoy网关 1.拉取官方镜像 envoy官方地址 https:&#x2F;&#x2F;github.com&#x2F;envoyproxy&#x2F;envoy 我们采取的方式是使用官方镜像，加上自定义的envoy配置文件二次打包镜像，可以实现生产环境的cicd流程。 默认已经安装好了docker 12# 拉取envoy镜像 可自定义版本 docker pull envoyproxy&#x2F;envoy:v1.">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://awoyai.github.io/2023/04/07/docker%E9%83%A8%E7%BD%B2envoy%E7%BD%91%E5%85%B3/envoyAdmin.jpg">
 <meta property="article:published_time" content="2023-04-07T02:19:32.000Z">
-<meta property="article:modified_time" content="2023-04-07T03:31:12.674Z">
+<meta property="article:modified_time" content="2024-04-18T09:35:07.902Z">
 <meta property="article:author" content="awoyai">
 <meta property="article:tag" content="linux">
 <meta property="article:tag" content="docker">
 <meta property="article:tag" content="envoy">
 <meta property="article:tag" content="gateway">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://awoyai.github.io/2023/04/07/docker%E9%83%A8%E7%BD%B2envoy%E7%BD%91%E5%85%B3/envoyAdmin.jpg">
   
   
   
@@ -319,7 +321,7 @@ envoy版本使用刚刚pull下来的镜像版本</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># build image</span><br>docker build -t envoy:v1 .<br><span class="hljs-comment"># run docker</span><br>docker run -d --name envoy -p 9901:9901 -p 10000:10000 envoy:v1<br></code></pre></td></tr></table></figure>
 <h3 id="验证">4. 验证</h3>
 <p>用浏览器打开docker运行的机器的IP地址，127.0.0.1:9901，查看管理端页面</p>
-
+<img src="/2023/04/07/docker%E9%83%A8%E7%BD%B2envoy%E7%BD%91%E5%85%B3/envoyAdmin.jpg" srcset="/img/loading.gif" lazyload class="" title="envoy_admin">
 <p>envoy已经启动成功，接下来验证域名转发的功能</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 以host yourserver.com发送请求</span><br>curl -X POST yourip:10000/yourPrefix/xxx -H <span class="hljs-string">&quot;Host: yourserver.com&quot;</span> -v<br><span class="hljs-comment"># 以host yourserver2.com发送请求</span><br>curl -X POST yourip:10000/yourPrefix2/xxx -H <span class="hljs-string">&quot;Host: yourserver2.com&quot;</span> -v<br></code></pre></td></tr></table></figure>
 <p>若得到成功响应则证明转发成功</p>
@@ -425,6 +427,12 @@ envoy版本使用刚刚pull下来的镜像版本</p>
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2024/04/18/vscode%E7%BB%88%E7%AB%AF%E9%97%AA%E9%80%80/" title="vscode终端闪退">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">vscode终端闪退</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
