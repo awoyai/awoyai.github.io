@@ -26,7 +26,7 @@
 <meta property="og:image" content="https://awoyai.github.io/2023/01/10/%E9%85%8D%E7%BD%AE%E8%BF%9C%E7%A8%8Blinux%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/image.2.png">
 <meta property="og:image" content="https://awoyai.github.io/2023/01/10/%E9%85%8D%E7%BD%AE%E8%BF%9C%E7%A8%8Blinux%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/image.3.png">
 <meta property="article:published_time" content="2023-01-10T04:58:56.000Z">
-<meta property="article:modified_time" content="2023-07-07T06:27:17.730Z">
+<meta property="article:modified_time" content="2024-04-19T08:06:32.946Z">
 <meta property="article:author" content="awoyai">
 <meta property="article:tag" content="linux">
 <meta property="article:tag" content="centos">
@@ -246,7 +246,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.9k 字
+          2.1k 字
         
       </span>
     
@@ -257,7 +257,7 @@
         
         
         
-          17 分钟
+          18 分钟
         
       </span>
     
@@ -333,7 +333,7 @@
 <h3 id="golang">1. Golang</h3>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-comment">#下载安装包</span><br>wget https://go.dev/dl/go1.19.4.linux-amd64.tar.gz<br><span class="hljs-comment">#install</span><br><span class="hljs-built_in">rm</span> -rf /usr/local/go &amp;&amp; tar -C /usr/local -xzf go1.19.4.linux-amd64.tar.gz<br><span class="hljs-comment">#add to path</span><br><span class="hljs-comment">#为所有人安装</span><br>vim /etc/profile<br><span class="hljs-comment">#将此行添加进去</span><br><span class="hljs-built_in">export</span> PATH=<span class="hljs-variable">$PATH</span>:/usr/local/go/bin<br><span class="hljs-built_in">source</span> /etc/profile<br><span class="hljs-comment">#verify</span><br>go version<br><br><span class="hljs-comment">#如果重开命令行发现无法识别 go命令可重启reboot解决</span><br></code></pre></td></tr></table></figure>
 <h3 id="rust">2.Rust</h3>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-comment"># 下载安装脚本并执行</span><br>curl --proto <span class="hljs-string">&#x27;=https&#x27;</span> --tlsv1.2 -sSf https://sh.rustup.rs | sh<br>选择1默认安装<br><br><span class="hljs-comment"># 重新加载环境</span><br><span class="hljs-built_in">source</span> <span class="hljs-string">&quot;<span class="hljs-variable">$HOME</span>/.cargo/env&quot;</span><br><br><span class="hljs-comment"># 验证是否安装成功</span><br>cargo version<br>cargo 1.70.0 (ec8a8a0ca 2023-04-25) 安装成功<br><br><span class="hljs-comment"># 如果出现 &quot;linker &#x27;cc&#x27; not found&quot;错误</span><br><span class="hljs-comment"># 执行</span><br>sudo apt install build-essential<br><br></code></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-comment"># 下载安装脚本并执行</span><br>curl --proto <span class="hljs-string">&#x27;=https&#x27;</span> --tlsv1.2 -sSf https://sh.rustup.rs | sh<br>选择1默认安装<br><br><span class="hljs-comment"># 重新加载环境</span><br><span class="hljs-built_in">source</span> <span class="hljs-string">&quot;<span class="hljs-variable">$HOME</span>/.cargo/env&quot;</span><br><br><span class="hljs-comment"># 验证是否安装成功</span><br>cargo version<br>cargo 1.70.0 (ec8a8a0ca 2023-04-25) 安装成功<br><br><span class="hljs-comment"># 如果出现 &quot;linker &#x27;cc&#x27; not found&quot;错误</span><br><span class="hljs-comment"># 执行</span><br>sudo apt install build-essential -y<br><br><span class="hljs-comment"># 如果出现 error: failed to run custom build command for `openssl-sys v0.9.96`</span><br><span class="hljs-comment">#执行</span><br>sudo apt install libssl-dev -y<br>sudo apt install pkg-config -y<br>sudo apt-get install libudev-dev -y <br><br></code></pre></td></tr></table></figure>
 <h2 id="配置git">5.配置git</h2>
 <p>配置~/.ssh/config</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs text">Host [test.com]<br>    User [your staff name]<br>    IdentityFile [秘钥位置]<br></code></pre></td></tr></table></figure>
