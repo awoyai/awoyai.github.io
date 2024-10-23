@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  
+  
+  
+  <entry>
+    <title>vscode终端闪退</title>
+    <link href="/2024/04/18/vscode%E7%BB%88%E7%AB%AF%E9%97%AA%E9%80%80/"/>
+    <url>/2024/04/18/vscode%E7%BB%88%E7%AB%AF%E9%97%AA%E9%80%80/</url>
+    
+    <content type="html"><![CDATA[<p>更新vscode新版本时，发现了一个意外的bug，打开有git初始化的项目，启动终端时会闪退，没有初始化的大概率不会闪退。</p><p>需要打开以下设置</p><img src="/2024/04/18/vscode%E7%BB%88%E7%AB%AF%E9%97%AA%E9%80%80/image.png" class="" title="设置"><p>即可解决</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>vscode</tag>
+      
+      <tag>git</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>docker部署envoy网关</title>
+    <link href="/2023/04/07/docker%E9%83%A8%E7%BD%B2envoy%E7%BD%91%E5%85%B3/"/>
+    <url>/2023/04/07/docker%E9%83%A8%E7%BD%B2envoy%E7%BD%91%E5%85%B3/</url>
+    
+    <content type="html"><![CDATA[<h2 id="使用docker部署envoy网关">使用docker部署envoy网关</h2><h2 id="拉取官方镜像">1.拉取官方镜像</h2><p>envoy官方地址 <a href="https://github.com/envoyproxy/envoy" class="uri">https://github.com/envoyproxy/envoy</a></p><p>我们采取的方式是使用官方镜像，加上自定义的envoy配置文件二次打包镜像，可以实现生产环境的cicd流程。</p><p>默认已经安装好了docker</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 拉取envoy镜像 可自定义版本 </span><br>docker pull envoyproxy/envoy:v1.25-latest<br></code></pre></td></tr></table></figure><h3 id="创建配置文件">2. 创建配置文件</h3><p>创建一个新目录，并创建配置文件envoy.ymal。以下是一个简单的配置，创建了一个监听器，监听了来自两个域名的请求，并分发到不同的集群中</p><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">admin:</span><br>  <span class="hljs-attr">access_log_path:</span> <span class="hljs-string">&quot;/dev/null&quot;</span><br>  <span class="hljs-attr">address:</span><br>    <span class="hljs-attr">socket_address:</span><br>      <span class="hljs-attr">address:</span> <span class="hljs-number">0.0</span><span class="hljs-number">.0</span><span class="hljs-number">.0</span><br>      <span class="hljs-attr">port_value:</span> <span class="hljs-number">9901</span><br><br><span class="hljs-attr">static_resources:</span><br>  <span class="hljs-attr">listeners:</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">listener_0</span><br>      <span class="hljs-attr">address:</span><br>        <span class="hljs-attr">socket_address:</span> &#123; <span class="hljs-attr">address:</span> <span class="hljs-number">0.0</span><span class="hljs-number">.0</span><span class="hljs-number">.0</span>, <span class="hljs-attr">port_value:</span> <span class="hljs-number">10000</span> &#125;<br>      <span class="hljs-attr">filter_chains:</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-attr">filters:</span><br>            <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">envoy.filters.network.http_connection_manager</span><br>              <span class="hljs-attr">typed_config:</span><br>                <span class="hljs-string">&quot;@type&quot;</span><span class="hljs-string">:</span> <span class="hljs-string">type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager</span><br>                <span class="hljs-attr">codec_type:</span> <span class="hljs-string">auto</span><br>                <span class="hljs-attr">stat_prefix:</span> <span class="hljs-string">ingress_http</span><br>                <span class="hljs-attr">route_config:</span><br>                  <span class="hljs-attr">name:</span> <span class="hljs-string">local_route</span><br>                  <span class="hljs-attr">virtual_hosts:</span><br>                    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">backend</span><br>                      <span class="hljs-attr">domains:</span><br>                        <span class="hljs-bullet">-</span> [<span class="hljs-string">&quot;your_server.com&quot;</span>]<br>                      <span class="hljs-attr">routes:</span><br>                        <span class="hljs-bullet">-</span> <span class="hljs-attr">match:</span><br>                            <span class="hljs-attr">prefix:</span> <span class="hljs-string">&quot;/your_prefix&quot;</span><br>                          <span class="hljs-attr">route:</span><br>                            <span class="hljs-attr">cluster:</span> <span class="hljs-string">cluster1</span><br>                    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">backend2</span><br>                      <span class="hljs-attr">domains:</span><br>                        <span class="hljs-bullet">-</span> [<span class="hljs-string">&quot;your_server2.com&quot;</span>]<br>                      <span class="hljs-attr">routes:</span><br>                        <span class="hljs-bullet">-</span> <span class="hljs-attr">match:</span><br>                            <span class="hljs-attr">prefix:</span> <span class="hljs-string">&quot;/your_prefix&quot;</span><br>                          <span class="hljs-attr">route:</span><br>                            <span class="hljs-attr">cluster:</span> <span class="hljs-string">cluster2</span>                            <br>                <span class="hljs-attr">http_filters:</span><br>                  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">envoy.filters.http.router</span><br>                    <span class="hljs-attr">typed_config:</span><br>                      <span class="hljs-string">&quot;@type&quot;</span><span class="hljs-string">:</span> <span class="hljs-string">type.googleapis.com/envoy.extensions.filters.http.router.v3.Router</span><br><br>  <span class="hljs-attr">clusters:</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">cluster1</span><br>      <span class="hljs-attr">connect_timeout:</span> <span class="hljs-string">6s</span><br>      <span class="hljs-attr">type:</span> <span class="hljs-string">static</span><br>      <span class="hljs-attr">dns_lookup_family:</span> <span class="hljs-string">V4_ONLY</span><br>      <span class="hljs-attr">lb_policy:</span> <span class="hljs-string">ROUND_ROBIN</span><br>      <span class="hljs-attr">load_assignment:</span><br>        <span class="hljs-attr">cluster_name:</span> <span class="hljs-string">cluster1</span><br>        <span class="hljs-attr">endpoints:</span><br>          <span class="hljs-bullet">-</span> <span class="hljs-attr">lb_endpoints:</span><br>              <span class="hljs-bullet">-</span> <span class="hljs-attr">endpoint:</span><br>                  <span class="hljs-attr">address:</span><br>                    <span class="hljs-attr">socket_address:</span><br>                      <span class="hljs-attr">address:</span> <span class="hljs-number">127.0</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span><br>                      <span class="hljs-attr">port_value:</span> <span class="hljs-number">8003</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">cluster2</span><br>      <span class="hljs-attr">connect_timeout:</span> <span class="hljs-string">6s</span><br>      <span class="hljs-attr">type:</span> <span class="hljs-string">static</span><br>      <span class="hljs-attr">dns_lookup_family:</span> <span class="hljs-string">V4_ONLY</span><br>      <span class="hljs-attr">lb_policy:</span> <span class="hljs-string">ROUND_ROBIN</span><br>      <span class="hljs-attr">load_assignment:</span><br>        <span class="hljs-attr">cluster_name:</span> <span class="hljs-string">cluster2</span><br>        <span class="hljs-attr">endpoints:</span><br>          <span class="hljs-bullet">-</span> <span class="hljs-attr">lb_endpoints:</span><br>              <span class="hljs-bullet">-</span> <span class="hljs-attr">endpoint:</span><br>                  <span class="hljs-attr">address:</span><br>                    <span class="hljs-attr">socket_address:</span><br>                      <span class="hljs-attr">address:</span> <span class="hljs-number">127.0</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span>          <br>                      <span class="hljs-attr">port_value:</span> <span class="hljs-number">8004</span>         <br><br></code></pre></td></tr></table></figure><p>在当前目录再创建一个文件dockerfile, envoy版本使用刚刚pull下来的镜像版本</p><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-keyword">FROM</span> envoyproxy/envoy:v1.<span class="hljs-number">25</span>-latest<br><span class="hljs-keyword">COPY</span><span class="language-bash"> envoy.yaml /etc/envoy/envoy.yaml</span><br><span class="hljs-keyword">RUN</span><span class="language-bash"> <span class="hljs-built_in">chmod</span> go+r /etc/envoy/envoy.yaml</span><br></code></pre></td></tr></table></figure><h3 id="二次打包镜像并运行">3. 二次打包镜像并运行</h3><p>在当前目录下，执行docker命令</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># build image</span><br>docker build -t envoy:v1 .<br><span class="hljs-comment"># run docker</span><br>docker run -d --name envoy -p 9901:9901 -p 10000:10000 envoy:v1<br></code></pre></td></tr></table></figure><h3 id="验证">4. 验证</h3><p>用浏览器打开docker运行的机器的IP地址，127.0.0.1:9901，查看管理端页面</p><img src="/2023/04/07/docker%E9%83%A8%E7%BD%B2envoy%E7%BD%91%E5%85%B3/envoyAdmin.jpg" class="" title="envoy_admin"><p>envoy已经启动成功，接下来验证域名转发的功能</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 以host yourserver.com发送请求</span><br>curl -X POST yourip:10000/yourPrefix/xxx -H <span class="hljs-string">&quot;Host: yourserver.com&quot;</span> -v<br><span class="hljs-comment"># 以host yourserver2.com发送请求</span><br>curl -X POST yourip:10000/yourPrefix2/xxx -H <span class="hljs-string">&quot;Host: yourserver2.com&quot;</span> -v<br></code></pre></td></tr></table></figure><p>若得到成功响应则证明转发成功</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>docker</category>
+      
+      <category>网关</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>linux</tag>
+      
+      <tag>docker</tag>
+      
+      <tag>envoy</tag>
+      
+      <tag>gateway</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>ubuntu安装docker</title>
+    <link href="/2023/04/07/ubuntu%E5%AE%89%E8%A3%85docker/"/>
+    <url>/2023/04/07/ubuntu%E5%AE%89%E8%A3%85docker/</url>
+    
+    <content type="html"><![CDATA[<h2 id="下载docker自动安装脚本">下载docker自动安装脚本</h2><p><code>curl -fsSL https://test.docker.com -o test-docker.sh</code></p><h2 id="运行脚本">运行脚本</h2><p><code>sudo sh test-docker.sh</code></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>docker</category>
+      
+      <category>环境搭建</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>linux</tag>
+      
+      <tag>docker</tag>
+      
+      <tag>ubuntu</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>ubuntu安装jenkins</title>
+    <link href="/2023/04/07/ubuntu%E5%AE%89%E8%A3%85jenkins/"/>
+    <url>/2023/04/07/ubuntu%E5%AE%89%E8%A3%85jenkins/</url>
+    
+    <content type="html"><![CDATA[<h2 id="下载秘钥">1.下载秘钥</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key | sudo <span class="hljs-built_in">tee</span> \<br>  /usr/share/keyrings/jenkins-keyring.asc &gt; /dev/null<br></code></pre></td></tr></table></figure><h2 id="添加jenkins仓库">2.添加jenkins仓库</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo sh -c <span class="hljs-string">&#x27;echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] http://pkg.jenkins.io/debian-stable binary/ &gt; /etc/apt/sources.list.d/jenkins.list&#x27;</span><br></code></pre></td></tr></table></figure><h2 id="更新下载">3.更新&amp;下载</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt update<br>sudo apt-get install fontconfig openjdk-11-jre<br>sudo apt-get install jenkins<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>jenkins</category>
+      
+      <category>环境搭建</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>linux</tag>
+      
+      <tag>ubuntu</tag>
+      
+      <tag>jenkins</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>windows安装oh-my-posh</title>
+    <link href="/2023/02/17/windows%E5%AE%89%E8%A3%85oh-my-posh/"/>
+    <url>/2023/02/17/windows%E5%AE%89%E8%A3%85oh-my-posh/</url>
+    
+    <content type="html"><![CDATA[<h3 id="使用scoop安装">使用scoop安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">scoop install https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest/download/oh-my-posh.json<br></code></pre></td></tr></table></figure><h3 id="使用winget安装">使用winget安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">winget install JanDeDobbeleer.OhMyPosh -s winget<br></code></pre></td></tr></table></figure><h3 id="设置主题">设置主题</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 打开配置文件</span><br>notepad <span class="hljs-variable">$PROFILE</span><br><span class="hljs-comment"># 输入以下并保存</span><br>oh-my-posh init pwsh --config <span class="hljs-string">&quot;<span class="hljs-variable">$env</span>:POSH_THEMES_PATH\robbyrussel.omp.json&quot;</span> | Invoke-Expression<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>golang命令执行</title>
+    <link href="/2023/01/13/golang%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/"/>
+    <url>/2023/01/13/golang%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/</url>
+    
+    <content type="html"><![CDATA[<h3 id="执行命令">执行命令</h3><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs golang"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;exec&quot;</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>    <span class="hljs-comment">// 错误用法</span><br>    <span class="hljs-comment">// exec.Command(&quot;./server&quot;, &quot;-conf ./config/config.yaml&quot;)</span><br>    <span class="hljs-comment">// 正确用法</span><br>    cmd, err := exec.Command(<span class="hljs-string">&quot;./server&quot;</span>, <span class="hljs-string">&quot;-conf&quot;</span>, <span class="hljs-string">&quot;config.yaml&quot;</span>, <span class="hljs-string">&quot;--xxx&quot;</span>, <span class="hljs-string">&quot;xxxx&quot;</span>)<br>    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>        <span class="hljs-built_in">println</span>(err)<br>    &#125;<br>    out, err := cmd.CombinedOutput()<br><span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br><span class="hljs-built_in">println</span>(err)<br>&#125;<br>    <span class="hljs-built_in">println</span>(out)<br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>golang</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>command</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>golang文件/压缩</title>
+    <link href="/2023/01/13/golang%E6%96%87%E4%BB%B6-%E5%8E%8B%E7%BC%A9/"/>
+    <url>/2023/01/13/golang%E6%96%87%E4%BB%B6-%E5%8E%8B%E7%BC%A9/</url>
+    
+    <content type="html"><![CDATA[<h3 id="文件读取">文件读取</h3><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs golang"><span class="hljs-keyword">package</span> main<br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;os&quot;</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>    file, err := os.ReadFile(<span class="hljs-string">&quot;xxxx&quot;</span>)<br>    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>        <span class="hljs-built_in">println</span>(err)<br>    &#125;<br>    <span class="hljs-built_in">println</span>(<span class="hljs-built_in">len</span>(file))<br>&#125;<br></code></pre></td></tr></table></figure><h3 id="文件压缩">文件压缩</h3><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs golang"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br><span class="hljs-string">&quot;archive/zip&quot;</span><br><span class="hljs-string">&quot;bytes&quot;</span><br><span class="hljs-string">&quot;encoding/gob&quot;</span><br><span class="hljs-string">&quot;io&quot;</span><br><span class="hljs-string">&quot;os&quot;</span><br><span class="hljs-string">&quot;path/filepath&quot;</span><br><span class="hljs-string">&quot;strings&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">CompressDir</span><span class="hljs-params">(src_dir <span class="hljs-type">string</span>, zipFileName <span class="hljs-type">string</span>)</span></span> <span class="hljs-type">error</span> &#123;<br><span class="hljs-comment">// 预防：旧文件无法覆盖</span><br>os.RemoveAll(zipFileName)<br><span class="hljs-comment">// 创建：zip文件</span><br>zipfile, _ := os.Create(zipFileName)<br><span class="hljs-keyword">defer</span> zipfile.Close()<br><span class="hljs-comment">// 打开：zip文件</span><br>archive := zip.NewWriter(zipfile)<br><span class="hljs-keyword">defer</span> archive.Close()<br><span class="hljs-comment">// 遍历路径信息</span><br><span class="hljs-keyword">return</span> filepath.Walk(src_dir, <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(path <span class="hljs-type">string</span>, info os.FileInfo, _ <span class="hljs-type">error</span>)</span></span> <span class="hljs-type">error</span> &#123;<br><span class="hljs-comment">// 如果是源路径，提前进行下一个遍历</span><br><span class="hljs-keyword">if</span> path == src_dir &#123;<br><span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span><br>&#125;<br><span class="hljs-comment">// 获取：文件头信息</span><br>header, _ := zip.FileInfoHeader(info)<br>header.Name = strings.TrimPrefix(path, src_dir+<span class="hljs-string">`/`</span>)<br><span class="hljs-comment">// 判断：文件是不是文件夹</span><br><span class="hljs-keyword">if</span> info.IsDir() &#123;<br>header.Name += <span class="hljs-string">`/`</span><br>&#125; <span class="hljs-keyword">else</span> &#123;<br><span class="hljs-comment">// 设置：zip的文件压缩算法</span><br>header.Method = zip.Deflate<br>&#125;<br><span class="hljs-comment">// 创建：压缩包头部信息</span><br>writer, _ := archive.CreateHeader(header)<br><span class="hljs-keyword">if</span> !info.IsDir() &#123;<br>file, _ := os.Open(path)<br><span class="hljs-keyword">defer</span> file.Close()<br>io.Copy(writer, file)<br>&#125;<br><span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span><br>&#125;)<br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>golang</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>golang</tag>
+      
+      <tag>io</tag>
+      
+      <tag>file</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>windows安装scoop</title>
+    <link href="/2023/01/10/windows%E5%AE%89%E8%A3%85scoop/"/>
+    <url>/2023/01/10/windows%E5%AE%89%E8%A3%85scoop/</url>
+    
+    <content type="html"><![CDATA[<h3 id="安装powershell">1. 安装powershell</h3><p>https://github.com/PowerShell/PowerShell</p><h3 id="安装scoop">2. 安装scoop</h3><p>使用powershell打开命令行</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">Set-ExecutionPolicy RemoteSigned -Scope CurrentUser <span class="hljs-comment"># Optional: Needed to run a remote script the first time</span><br>irm get.scoop.sh | iex<br></code></pre></td></tr></table></figure><h3 id="添加scoop桶">3. 添加scoop桶</h3><p><code>scoop bucket add extras</code></p><p><a href="https://scoop.sh/#/buckets">更多桶推荐</a></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>开发环境搭建</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>windows</tag>
+      
+      <tag>powershell</tag>
+      
+      <tag>scoop</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>配置远程linux开发环境</title>
+    <link href="/2023/01/10/%E9%85%8D%E7%BD%AE%E8%BF%9C%E7%A8%8Blinux%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/"/>
+    <url>/2023/01/10/%E9%85%8D%E7%BD%AE%E8%BF%9C%E7%A8%8Blinux%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/</url>
+    
+    <content type="html"><![CDATA[<h2 id="配置连接">1.配置连接</h2><p>若使用的是windows，可选两种连接方式</p><h3 id="使用weterm">1.使用WeTERM</h3><h3 id="terminal-命令行连接">2.Terminal 命令行连接</h3><p>1.下载git</p><p>2.修改系统环境变量，将git的usr目录下的bin环境变量，上移至系统自带的openSSH之上</p><img src="/2023/01/10/%E9%85%8D%E7%BD%AE%E8%BF%9C%E7%A8%8Blinux%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/image.2.png" class="" title="图片"><p>3.打开terminal</p><p>4.生成ssh key</p><p>5.设置免密登陆</p><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs sh"><br><span class="hljs-comment">#设置免密登陆 端口默认为22 devcloud的端口为 36000 所以需要指定</span><br>ssh-copy-id -i ~/.ssh/[秘钥文件] -p 36000 [user]@[IP地址]<br><span class="hljs-comment">#输入密码</span><br><br><span class="hljs-comment">#测试登录</span><br>ssh -i ~/.ssh/[秘钥文件] -p 36000 [user]@[IP地址]<br><br></code></pre></td></tr></table></figure><h2 id="配置vscode连接">2.配置vscode连接</h2><h3 id="下载vscode">下载vscode</h3><p>安装插件 remote SSH</p><p>配置 ~/.ssh/config</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs text">Host [自定义host名]<br>    HostName [ip]<br>    User [连接用户名]<br>    Port [端口]<br></code></pre></td></tr></table></figure><h2 id="安装oh-my-zsh命令行美化">3.安装oh-my-zsh（命令行美化）</h2><h3 id="安装zsh-和-oh-my-zsh">安装zsh 和 oh-my-zsh</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-comment">#安装zsh</span><br>yum install -y zsh<br><br><span class="hljs-comment">#安装git</span><br>yum install -y git<br><br><span class="hljs-comment">#切换默认shell</span><br>chsh -s /bin/zsh<br><br><span class="hljs-comment">#安装ohmyzsh</span><br>git <span class="hljs-built_in">clone</span> https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh<br><br><span class="hljs-comment">#复制默认.zshrc</span><br><span class="hljs-built_in">cp</span> ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc<br><br><span class="hljs-comment">#安装插件</span><br><span class="hljs-comment">#语法高亮插件</span><br>git <span class="hljs-built_in">clone</span> https://github.com/zsh-users/zsh-syntax-highlighting.git <span class="hljs-variable">$&#123;ZSH_CUSTOM:-~/.oh-my-zsh/custom&#125;</span>/plugins/zsh-syntax-highlighting<br><span class="hljs-comment">#自动补全插件</span><br>git <span class="hljs-built_in">clone</span> https://github.com/zsh-users/zsh-autosuggestions.git <span class="hljs-variable">$&#123;ZSH_CUSTOM:-~/.oh-my-zsh/custom&#125;</span>/plugins/zsh-autosuggestions<br></code></pre></td></tr></table></figure><p>在~/.zshrc的plugins中加入zsh-syntax-highlighting和zsh-autosuggestions</p><img src="/2023/01/10/%E9%85%8D%E7%BD%AE%E8%BF%9C%E7%A8%8Blinux%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/image.3.png" class="" title="图片"><h2 id="安装开发语言">4.安装开发语言</h2><h3 id="golang">1. Golang</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-comment">#下载安装包</span><br>wget https://go.dev/dl/go1.19.4.linux-amd64.tar.gz<br><span class="hljs-comment">#install</span><br><span class="hljs-built_in">rm</span> -rf /usr/local/go &amp;&amp; tar -C /usr/local -xzf go1.19.4.linux-amd64.tar.gz<br><span class="hljs-comment">#add to path</span><br><span class="hljs-comment">#为所有人安装</span><br>vim /etc/profile<br><span class="hljs-comment">#将此行添加进去</span><br><span class="hljs-built_in">export</span> PATH=<span class="hljs-variable">$PATH</span>:/usr/local/go/bin<br><span class="hljs-built_in">source</span> /etc/profile<br><span class="hljs-comment">#verify</span><br>go version<br><br><span class="hljs-comment">#如果重开命令行发现无法识别 go命令可重启reboot解决</span><br></code></pre></td></tr></table></figure><h3 id="rust">2.Rust</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-comment"># 下载安装脚本并执行</span><br>curl --proto <span class="hljs-string">&#x27;=https&#x27;</span> --tlsv1.2 -sSf https://sh.rustup.rs | sh<br>选择1默认安装<br><br><span class="hljs-comment"># 重新加载环境</span><br><span class="hljs-built_in">source</span> <span class="hljs-string">&quot;<span class="hljs-variable">$HOME</span>/.cargo/env&quot;</span><br><br><span class="hljs-comment"># 验证是否安装成功</span><br>cargo version<br>cargo 1.70.0 (ec8a8a0ca 2023-04-25) 安装成功<br><br><span class="hljs-comment"># 如果出现 &quot;linker &#x27;cc&#x27; not found&quot;错误</span><br><span class="hljs-comment"># 执行</span><br>sudo apt install build-essential -y<br><br><span class="hljs-comment"># 如果出现 error: failed to run custom build command for `openssl-sys v0.9.96`</span><br><span class="hljs-comment">#执行</span><br>sudo apt install libssl-dev -y<br>sudo apt install pkg-config -y<br>sudo apt-get install libudev-dev -y <br><br></code></pre></td></tr></table></figure><h2 id="配置git">5.配置git</h2><p>配置~/.ssh/config</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs text">Host [test.com]<br>    User [your staff name]<br>    IdentityFile [秘钥位置]<br></code></pre></td></tr></table></figure><p>配置 ~/.gitconfig</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs text">[credential]<br>        helper = store<br>[user]<br>        name = [staffname]<br>        passowrd = [密码]<br>        email = [邮箱]<br></code></pre></td></tr></table></figure><h2 id="安装mysql">6.安装mysql</h2><a href="/2023/01/10/ubuntu%E5%AE%89%E8%A3%85mysql/" title="ubuntu安装mysql">ubuntu安装mysql</a><h2 id="安装redis">7.安装redis</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs sh">wget https://download.redis.io/redis-stable.tar.gz<br>tar -xzvf redis-stable.tar.gz<br><span class="hljs-built_in">cd</span> redis-stable<br>make<br>make install<br><span class="hljs-comment"># verify</span><br>redis-server &amp;<br><br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>开发环境搭建</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>linux</tag>
+      
+      <tag>vscode</tag>
+      
+      <tag>git</tag>
+      
+      <tag>golang</tag>
+      
+      <tag>centos</tag>
+      
+      <tag>ssh</tag>
+      
+      <tag>oh-my-zsh</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>ubuntu安装mysql</title>
+    <link href="/2023/01/10/ubuntu%E5%AE%89%E8%A3%85mysql/"/>
+    <url>/2023/01/10/ubuntu%E5%AE%89%E8%A3%85mysql/</url>
+    
+    <content type="html"><![CDATA[<h3 id="安装mysql">1. 安装mysql</h3><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs routeros">sudo apt-<span class="hljs-built_in">get</span> update<br>sudo apt-<span class="hljs-built_in">get</span> install mysql-server<br>sudo apt-<span class="hljs-built_in">get</span> install mysql-client<br>sudo apt-<span class="hljs-built_in">get</span> install libmysqlclient-dev<br></code></pre></td></tr></table></figure><h3 id="设置root">2. 设置root</h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs awk">sudo vim <span class="hljs-regexp">/etc/my</span>sql/debian.cnf<br><span class="hljs-comment"># copy password</span><br><span class="hljs-comment"># login mysql</span><br>mysql -u debian-sys-maint -p<br><span class="hljs-comment"># Paste password</span><br></code></pre></td></tr></table></figure><h3 id="更新root用户密码">3. 更新root用户密码</h3><figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs pgsql"><span class="hljs-keyword">update</span> mysql.<span class="hljs-keyword">user</span> <span class="hljs-keyword">set</span> host=<span class="hljs-string">&#x27;%&#x27;</span> <span class="hljs-keyword">where</span> <span class="hljs-keyword">user</span>=<span class="hljs-string">&#x27;root&#x27;</span>;<br><br><span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">USER</span> <span class="hljs-string">&#x27;root&#x27;</span>@<span class="hljs-string">&#x27;%&#x27;</span> IDENTIFIED <span class="hljs-keyword">WITH</span> mysql_native_password <span class="hljs-keyword">BY</span> <span class="hljs-string">&#x27;你的密码&#x27;</span>;<br># 如果看到ERROR <span class="hljs-number">1819</span> (HY000): Your <span class="hljs-keyword">password</span> does <span class="hljs-keyword">not</span> satisfy the <span class="hljs-keyword">current</span> <span class="hljs-keyword">policy</span> requirements<br># 重新设置密码策略 见<span class="hljs-number">4</span><br><br># 保存设置<br>flush <span class="hljs-keyword">privileges</span>;<br><br># changed success<br><span class="hljs-keyword">select</span> <span class="hljs-keyword">user</span>,host,plugin <span class="hljs-keyword">from</span> mysql.<span class="hljs-keyword">user</span>;<br></code></pre></td></tr></table></figure><h3 id="重新设置密码策略">4. 重新设置密码策略</h3><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs routeros">select @@validate_password.policy;<br>SHOW VARIABLES LIKE <span class="hljs-string">&#x27;validate_password%&#x27;</span>;<br><br><span class="hljs-comment"># 设置命令 自行调整</span><br><span class="hljs-built_in">set</span> global validate_password.<span class="hljs-attribute">policy</span>=0;<br><span class="hljs-built_in">set</span> global validate_password.<span class="hljs-attribute">mixed_case_count</span>=0;<br><span class="hljs-built_in">set</span> global validate_password.<span class="hljs-attribute">number_count</span>=3;<br><span class="hljs-built_in">set</span> global validate_password.<span class="hljs-attribute">special_char_count</span>=0;<br><span class="hljs-built_in">set</span> global validate_password.<span class="hljs-attribute">length</span>=3;<br></code></pre></td></tr></table></figure><h3 id="开机自启">5. 开机自启</h3><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs routeros">systemctl <span class="hljs-built_in">enable</span> mysqld  <br><span class="hljs-comment">#查看状态 </span><br>sudo netstat -tap | grep mysql<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>开发环境搭建</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>linux</tag>
+      
+      <tag>ubuntu</tag>
+      
+      <tag>mysql</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>zk-stark_air入门</title>
+    <link href="/2023/01/10/zk-stark-air%E5%85%A5%E9%97%A8/"/>
+    <url>/2023/01/10/zk-stark-air%E5%85%A5%E9%97%A8/</url>
+    
+    <content type="html"><![CDATA[<h2 id="背景">1.背景</h2><p>传统痛点：传统的区块链proof使用的是全部交易重放，每一个节点都需要重新执行验证每笔交易的计算，随着交易量和时间的增长，验证时间大幅提升。</p><p>解决办法：证明方从传统的上传交易到 <strong>上传证明</strong> ，证明方只需要重新计算，检查结果与声称的相符合即可，随着区块链的吞吐量增大，通过可扩展性可以使得验证时间大幅下降。</p><img src="/2023/01/10/zk-stark-air%E5%85%A5%E9%97%A8/81e5bf57d6347cd978fb1348a6f61d41-cm334Uo.png" class="" title="图片"><p>AIR在此为STARK提供了执行轨迹(Execution Trace)的多项式生成。</p><h2 id="概念">2.概念</h2><p>STARK 的第一步称为算术化，它是验证计算的问题转换成检查某个多项式的问题。但算术化本身只能将计算完整性的语句转换成多项式</p><p>算术化本身由两步组成：</p><p>第一步是生成执行轨迹和多项式约束。</p><p>第二步是将这两个对象转换为单个低次多项式。</p><p>证明者和验证者在多项式约束上达成一致后，证明者生成一个执行轨迹，证明者会让验证者相信这个执行轨迹上满足多项式约束。</p><h2 id="如何算术化">3.如何算术化</h2><h3 id="具体示例">具体示例：</h3><p>生成执行轨迹与多项式约束</p><h4 id="这是一张超市收据">1. 这是一张超市收据</h4><img src="/2023/01/10/zk-stark-air%E5%85%A5%E9%97%A8/%E6%94%B6%E6%8D%AE1.png" class="" title="图片"><p><strong>执行轨迹(Execution Trace)：</strong></p><p>我们要生成的执行跟踪类型必须具有简洁可测试的特殊特征——每一行只能根据跟踪中靠近它的行进行验证，并且对每一对应用相同的验证过程的行。</p><p>添加一行运行中的总和</p><img src="/2023/01/10/zk-stark-air%E5%85%A5%E9%97%A8/%E6%94%B6%E6%8D%AE2.png" class="" title="图片"><p>此时我们在给出前一行的前提下，可以单独验证每一行。</p><p>假设给出第3行，那么我们可以验证第4行： 12.96+2.65=16.41，这就称之为简洁约束。</p><p><strong>多项式约束</strong></p><table><thead><tr class="header"><th>Avocado</th><th>4.98</th><th>0.00</th></tr></thead><tbody><tr class="odd"><td>Apple</td><td>7.98</td><td>4.98</td></tr><tr class="even"><td>Milk</td><td>3.45</td><td>12.96</td></tr><tr class="odd"><td>Bread</td><td>2.65</td><td>16.41</td></tr><tr class="even"><td>BrwonSugar</td><td>1.40</td><td>19.06</td></tr><tr class="odd"><td>Total</td><td>20.46</td><td>20.46</td></tr></tbody></table><p>用 <span class="math inline">\(A_{i,j}\)</span> 表示第 i 行第 j 列中单元格的值，可以得到:</p><ol type="1"><li><span class="math inline">\(A_{0,2}=0\)</span></li><li><span class="math inline">\(\forall 1 \leq i \leq 5\)</span> : <span class="math inline">\(A_{i,2} - A_{i-1,2} - A_{i-1,1} = 0\)</span></li><li><span class="math inline">\(A_{5,1} - A_{5,2} = 0\)</span></li></ol><p>我们将收据的问题转换为简洁可测试的<strong>执行轨迹(Execution Trace)</strong>，以及一组相对应的多项式约束（如上），且只有原始收据总和正确时以上才会成立。</p><p>这些<span class="math inline">\(A_{i,j}\)</span>中的线形约束，如果我们使用的的多项式约束度数高的话，会对证明的长度和生成证明的时间产生不利的影响，所以对我们来说线性的约束是最好的。</p><p>将执行轨迹改写为多项式，将其扩展到一个大域，使用多项式约束将其转换为另一个只在执行轨迹上是低度的多项式。</p><h4 id="斐波那契">2. 斐波那契</h4><p>正确计算<span class="math inline">\(Z_{96769}\)</span>到第512位的斐波那契数列。该序列正确定义为</p><p><span class="math inline">\(a_0\)</span> = 1</p><p><span class="math inline">\(a_1\)</span> = 1</p><p><span class="math inline">\(a_{n+2} = (a_{n+1} + a_n) mod 96769\)</span></p><p>我们CI声明(the CI Statement) <span class="math inline">\(a_{511}\)</span>=62215</p><p>首先我们可以简单把512个数字列出来，创建一个<strong>执行轨迹(Execution Trace)</strong>：</p><img src="/2023/01/10/zk-stark-air%E5%85%A5%E9%97%A8/%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91.png" class="" title="图片"><p>我们使用的多项式约束：</p><ol type="1"><li><span class="math inline">\(A_0 - 1 = 0\)</span></li><li><span class="math inline">\(A_1 -1 = 0\)</span></li><li><span class="math inline">\(\forall0 \leq i &lt;510: A_{i+2} - A_{i+1} - A_i = 0\)</span></li><li><span class="math inline">\(A_{511} - 62215 = 0\)</span></li></ol><p><strong>转换成多项式</strong></p><p>我们定义一个最大度数为512的多项式 <span class="math inline">\(f(x)\)</span>，然后执行轨迹中的元素就是在某个generator g的幂中求值。</p><p>即：</p><p>$$ 0i &lt; 512: f(g^i) = A_i</p><p>$$</p><p>用<span class="math inline">\(f(x)\)</span>替代<span class="math inline">\(A_i\)</span>代表多项式约束，我们得到：</p><ol type="1"><li><span class="math inline">\(f(0) - 1 = 0\)</span></li><li><span class="math inline">\(f(1) -1 = 0\)</span></li><li><span class="math inline">\(\forall0 \leq i &lt;510: f(g^{i+2}) - f(g^{i+1}) - f(g^{i}) = 0\)</span></li><li><span class="math inline">\(f(g^{511}) - 62215 = 0\)</span></li></ol><p>注意：1、2、4是引用单个<span class="math inline">\(f(x)\)</span>的约束，我们称之为边界约束</p><p>我们也可以把上述多项式约束写成这样：</p><p>$x $ {1, <span class="math inline">\(g\)</span>, <span class="math inline">\(g^2\)</span>, ..., <span class="math inline">\(g^{509}\)</span>}: <span class="math inline">\(f(g^2x) - f(gx) - f(x) = 0\)</span></p><p>我们可以将x作为执行轨迹中的某一行的，那么下一行就是<span class="math inline">\(gx\)</span>, 再下一行就是<span class="math inline">\(g^2x\)</span>，前一行是<span class="math inline">\(g^{-1}x\)</span>，以此类推。</p><p>多项式 <span class="math inline">\(f(g^{i+2}) - f(g^{i+1}) - f(g^{i})\)</span>，在执行轨迹中除去最后两行，每一行的结果都为0，即1, <span class="math inline">\(g\)</span>, <span class="math inline">\(g^2\)</span>, ..., <span class="math inline">\(g^{509}\)</span>都是这个多项式的根，且这个多项式的度最多为510，所以我们可以构造一个复合多项式<span class="math inline">\(q(x)\)</span>:</p><p>$$ q(x) = </p><p>$$</p><p>但是这个多项式在执行轨迹之内时是一个低度的多项式，但是在之外并不是。</p><p><strong>简洁(Succinctness)</strong></p><p>使用少量查询，让验证者对每个查询执行少量计算，且允许在小范围内查询，但是证明者是有可能作恶的。</p><p>为了防止这种情况，验证者通过询问三个地方<span class="math inline">\(f(x)\)</span>在<span class="math inline">\(w\)</span>处的值，得到斐波那契执行轨迹：<span class="math inline">\(f(g^2w)， f(gw)，f(w )\)</span></p><p>验证者可以通过计算复合多项式<span class="math inline">\(q(w)\)</span>得到在<span class="math inline">\(w\)</span>处的值。</p><p>分子可以从证明者那里获得的值来计算，但是分母会有可能为0。</p><p>由于分母是独立于执行轨迹的，所以可以在计算之前就计算出来，但是实际上执行轨迹可能有数十万，在计算上会付出极大的的代价。</p><p>所以我们可以为g的幂设置子群G：</p><p>$$ x^{|G|} -1 = _{g G}(x-g)</p><p>$$</p><p>这个等式是正确的，因为两边都是|G|的多项式。其根正是 G 的元素。计算这个等式的右边似乎在|G|中线性时间的操作。但是，如果我们通过平方来求幂(快速幂)，则该等式的左侧可以在对数时间内计算。</p><p>之前有问题的斐波那契多项式可以将其重写为：</p><p>$$  = </p><p>$$</p><p>重写后的多项式的约束也同样作用于子群。</p><p>那如何处理多列和多个约束的情况呢，很显然，多列就会有多个多项式，那么这些复合多项式和多项式约束随机线性组合在一起组成一个更大的多项式，成为了STARK最后的一个阶段，低度测试。</p><p><strong>总结</strong></p><p>我们已经展示了在给定执行轨迹和约束多项式的情况下，证明者如何构造一个低度多项式，当且仅当原始 CI 语句成立时。此外，我们已经展示了验证者如何有效地查询这个多项式的值，确保证明者没有用一些假的低次多项式替换真正的多项式。</p><h3 id="资料">资料</h3><p><a href="https://medium.com/starkware/stark-math-the-journey-begins-51bd2b063c71">http://medium.com/starkware/stark-math-the-journey-begins-51bd2b063c71</a></p><p><a href="https://medium.com/starkware/stark-math-the-journey-begins-51bd2b063c71">https://medium.com/starkware/arithmetization-i-15c046390862</a></p><p><a href="https://medium.com/starkware/arithmetization-ii-403c3b3f4355">https://medium.com/starkware/arithmetization-ii-403c3b3f4355</a></p><p>[<a href="https://eprint.iacr.org/2021/582.pdf">https://eprint.iacr.org/2021/582.pdf</a></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>ZK</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>zkStark</tag>
+      
+      <tag>AIR</tag>
+      
+      <tag>算术化</tag>
+      
+      <tag>区块链</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  
+</search>

@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <url>
+    <loc>https://awoyai.github.io/2023/01/13/golang%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/</loc>
+    
+    <lastmod>2024-10-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://awoyai.github.io/2023/04/07/docker%E9%83%A8%E7%BD%B2envoy%E7%BD%91%E5%85%B3/</loc>
+    
+    <lastmod>2024-10-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://awoyai.github.io/2023/04/07/ubuntu%E5%AE%89%E8%A3%85docker/</loc>
+    
+    <lastmod>2024-10-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://awoyai.github.io/2023/04/07/ubuntu%E5%AE%89%E8%A3%85jenkins/</loc>
+    
+    <lastmod>2024-10-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://awoyai.github.io/2023/01/10/ubuntu%E5%AE%89%E8%A3%85mysql/</loc>
+    
+    <lastmod>2024-10-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://awoyai.github.io/2024/04/18/vscode%E7%BB%88%E7%AB%AF%E9%97%AA%E9%80%80/</loc>
+    
+    <lastmod>2024-10-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://awoyai.github.io/2023/01/13/golang%E6%96%87%E4%BB%B6-%E5%8E%8B%E7%BC%A9/</loc>
+    
+    <lastmod>2024-10-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://awoyai.github.io/2023/02/17/windows%E5%AE%89%E8%A3%85oh-my-posh/</loc>
+    
+    <lastmod>2024-10-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://awoyai.github.io/2023/01/10/windows%E5%AE%89%E8%A3%85scoop/</loc>
+    
+    <lastmod>2024-10-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://awoyai.github.io/2023/01/10/zk-stark-air%E5%85%A5%E9%97%A8/</loc>
+    
+    <lastmod>2024-10-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://awoyai.github.io/2023/01/10/%E9%85%8D%E7%BD%AE%E8%BF%9C%E7%A8%8Blinux%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/</loc>
+    
+    <lastmod>2024-10-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://awoyai.github.io/about/index.html</loc>
+    
+    <lastmod>2024-10-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+
+  <url>
+    <loc>https://awoyai.github.io/</loc>
+    <lastmod>2024-10-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  
+  <url>
+    <loc>https://awoyai.github.io/tags/command/</loc>
+    <lastmod>2024-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://awoyai.github.io/tags/linux/</loc>
+    <lastmod>2024-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://awoyai.github.io/tags/docker/</loc>
+    <lastmod>2024-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://awoyai.github.io/tags/envoy/</loc>
+    <lastmod>2024-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://awoyai.github.io/tags/gateway/</loc>
+    <lastmod>2024-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://awoyai.github.io/tags/ubuntu/</loc>
+    <lastmod>2024-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://awoyai.github.io/tags/jenkins/</loc>
+    <lastmod>2024-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://awoyai.github.io/tags/mysql/</loc>
+    <lastmod>2024-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://awoyai.github.io/tags/vscode/</loc>
+    <lastmod>2024-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://awoyai.github.io/tags/git/</loc>
+    <lastmod>2024-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://awoyai.github.io/tags/golang/</loc>
+    <lastmod>2024-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://awoyai.github.io/tags/io/</loc>
+    <lastmod>2024-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://awoyai.github.io/tags/file/</loc>
+    <lastmod>2024-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://awoyai.github.io/tags/windows/</loc>
+    <lastmod>2024-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://awoyai.github.io/tags/powershell/</loc>
+    <lastmod>2024-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://awoyai.github.io/tags/scoop/</loc>
+    <lastmod>2024-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://awoyai.github.io/tags/zkStark/</loc>
+    <lastmod>2024-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://awoyai.github.io/tags/AIR/</loc>
+    <lastmod>2024-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://awoyai.github.io/tags/%E7%AE%97%E6%9C%AF%E5%8C%96/</loc>
+    <lastmod>2024-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://awoyai.github.io/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/</loc>
+    <lastmod>2024-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://awoyai.github.io/tags/centos/</loc>
+    <lastmod>2024-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://awoyai.github.io/tags/ssh/</loc>
+    <lastmod>2024-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://awoyai.github.io/tags/oh-my-zsh/</loc>
+    <lastmod>2024-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+
+  
+  <url>
+    <loc>https://awoyai.github.io/categories/golang/</loc>
+    <lastmod>2024-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://awoyai.github.io/categories/docker/</loc>
+    <lastmod>2024-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://awoyai.github.io/categories/jenkins/</loc>
+    <lastmod>2024-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://awoyai.github.io/categories/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</loc>
+    <lastmod>2024-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://awoyai.github.io/categories/docker/%E7%BD%91%E5%85%B3/</loc>
+    <lastmod>2024-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://awoyai.github.io/categories/docker/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</loc>
+    <lastmod>2024-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://awoyai.github.io/categories/ZK/</loc>
+    <lastmod>2024-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://awoyai.github.io/categories/jenkins/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</loc>
+    <lastmod>2024-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+</urlset>
