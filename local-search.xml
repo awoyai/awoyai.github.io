@@ -4,6 +4,19 @@
   
   
   <entry>
+    <title>VMware为ubuntu扩容磁盘</title>
+    <link href="/2024/10/23/VMware%E4%B8%BAubuntu%E6%89%A9%E5%AE%B9%E7%A3%81%E7%9B%98/"/>
+    <url>/2024/10/23/VMware%E4%B8%BAubuntu%E6%89%A9%E5%AE%B9%E7%A3%81%E7%9B%98/</url>
+    
+    <content type="html"><![CDATA[<h1 id="扩容磁盘">1.扩容磁盘</h1><h2 id="在ubuntu中操作">1.1.在Ubuntu中操作</h2><p>关机</p><p><code>sudo init 0</code></p><h2 id="在vmware中操作">1.2.在VMware中操作</h2><img src="/2024/10/23/VMware%E4%B8%BAubuntu%E6%89%A9%E5%AE%B9%E7%A3%81%E7%9B%98/image1.png" class="" title="虚拟机扩展磁盘"><p>选择需要扩容的大小</p><h1 id="在ubuntu中操作-1">2.在Ubuntu中操作</h1><h2 id="查看磁盘">2.1.查看磁盘</h2><p><code>df -h</code></p><img src="/2024/10/23/VMware%E4%B8%BAubuntu%E6%89%A9%E5%AE%B9%E7%A3%81%E7%9B%98/image2.png" class="" title="查看磁盘"><h2 id="进行分区">2.2 进行分区</h2><p><code>sudo fdisk /dev/sda</code></p><p><code>n</code> 新建分区</p><p>回车默认</p><p><code>w</code> 写入</p><img src="/2024/10/23/VMware%E4%B8%BAubuntu%E6%89%A9%E5%AE%B9%E7%A3%81%E7%9B%98/image3.png" class="" title="新建分区"><p>!</p><h2 id="查看磁盘信息">2.3. 查看磁盘信息</h2><p>使用<code>lvs</code>和<code>vgdisplay</code>查看要扩容的磁盘信息</p><img src="/2024/10/23/VMware%E4%B8%BAubuntu%E6%89%A9%E5%AE%B9%E7%A3%81%E7%9B%98/image4.png" class="" title="查看磁盘信息"><h2 id="扩容分区">2.4. 扩容分区</h2><p><code>sudo pvcreate /dev/sda4</code></p><p>使用<code>sudo vgextend ubuntu-vg /dev/sda4</code></p><p>扩容<code>sudo lvextend -L+10G /dev/ubuntu-vg/ubuntu-lv /dev/sda4</code>,增加10G空间，</p><p>使用<code>sudo resize2fs /dev/ubuntu-vg/ubuntu-lv</code>扩大文件系统</p><p><code>df -h</code> 查看是否扩容成功</p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>vscode终端闪退</title>
     <link href="/2024/04/18/vscode%E7%BB%88%E7%AB%AF%E9%97%AA%E9%80%80/"/>
     <url>/2024/04/18/vscode%E7%BB%88%E7%AB%AF%E9%97%AA%E9%80%80/</url>
@@ -234,11 +247,11 @@
       
       <tag>linux</tag>
       
+      <tag>golang</tag>
+      
       <tag>vscode</tag>
       
       <tag>git</tag>
-      
-      <tag>golang</tag>
       
       <tag>centos</tag>
       
